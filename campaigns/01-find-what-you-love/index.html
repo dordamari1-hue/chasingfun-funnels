@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liformation | מפגש חינמי עם דור דמרי</title>
+<meta name="description" content="מפגש זום חינמי — איך מוצאים מה אתם אוהבים בחיים לפני שבוחרים תואר או קריירה. שישי הקרוב 11:00">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Frank+Ruhl+Libre:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#C9B99A;--sand-lt:#EDE4D8;--sand-pale:#F7F2EC;
+  --stone:#7A6E62;--rock:#2E2720;
+  --gold:#B08D57;--gold-lt:#C9A96E;
+  --cream:#FAF7F2;--ink:#1A1612;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.3}
+
+/* ── HERO ── */
+.hero{min-height:100vh;position:relative;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden;background:var(--rock)}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,22,18,.94) 0%,rgba(26,22,18,.65) 50%,rgba(26,22,18,.88) 100%);z-index:1}
+.hero-photo-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1400&q=80') center/cover no-repeat;filter:saturate(.5) sepia(.3)}
+.ring{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(201,185,154,.06);pointer-events:none;z-index:2}
+
+/* ── NAV with LOGO ── */
+nav{position:relative;z-index:10;padding:28px 48px;display:flex;align-items:center;justify-content:space-between}
+.logo-wrap{display:flex;align-items:center;gap:16px}
+.logo-svg{width:52px;height:32px;flex-shrink:0}
+.logo-text-wrap{display:flex;flex-direction:column;gap:1px}
+.logo-name{font-family:'Frank Ruhl Libre',serif;font-size:15px;font-weight:400;color:var(--sand);letter-spacing:3px;text-transform:uppercase;line-height:1}
+.logo-sub-text{font-size:8px;color:var(--stone);letter-spacing:4px;text-transform:uppercase;line-height:1}
+.nav-line{flex:1;height:1px;background:linear-gradient(to left,transparent,rgba(201,185,154,.18),transparent);margin:0 28px}
+.nav-tag{font-size:12px;color:var(--stone);letter-spacing:2px}
+
+/* ── HERO BODY ── */
+.hero-body{position:relative;z-index:10;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;padding:0 48px 0 15%;text-align:right}
+.overline{font-size:11px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:28px;opacity:0;animation:rise .9s ease .2s forwards}
+.h1{font-family:'Frank Ruhl Libre',serif;font-size:clamp(42px,7vw,88px);font-weight:900;line-height:1.05;color:var(--cream);margin-bottom:26px;opacity:0;animation:rise .9s ease .35s forwards}
+.h1 em{font-style:normal;color:var(--sand);display:block}
+.hero-p{font-size:clamp(15px,1.7vw,19px);color:rgba(237,228,216,.62);font-weight:300;line-height:1.75;max-width:480px;margin-bottom:48px;opacity:0;animation:rise .9s ease .5s forwards}
+.cta-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:14px;opacity:0;animation:rise .9s ease .65s forwards}
+.btn-gold{display:inline-block;padding:17px 42px;border:1px solid var(--gold);color:var(--gold-lt);font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;letter-spacing:1.5px;text-decoration:none;cursor:pointer;background:transparent;position:relative;overflow:hidden;transition:color .3s}
+.btn-gold::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .35s ease;z-index:-1}
+.btn-gold:hover::before{transform:scaleX(1)}
+.btn-gold:hover{color:var(--ink)}
+.cta-small{font-size:12px;color:var(--stone);letter-spacing:1.5px}
+.hero-foot{position:relative;z-index:10;padding:28px 48px;border-top:1px solid rgba(201,185,154,.1);display:flex;justify-content:flex-end;gap:48px;opacity:0;animation:rise .9s ease .8s forwards}
+.stat-num{font-family:'Frank Ruhl Libre',serif;font-size:30px;font-weight:900;color:var(--sand);display:block;line-height:1}
+.stat-lbl{font-size:10px;color:var(--stone);letter-spacing:2.5px;text-transform:uppercase;margin-top:5px;display:block}
+
+/* ── COUNTDOWN ── */
+.cd-bar{background:var(--rock);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;border-bottom:1px solid rgba(201,185,154,.08)}
+.cd-lbl-main{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--stone)}
+.cd-nums{display:flex;gap:20px;align-items:center}
+.cd-box{text-align:center}
+.cd-n{font-family:'Frank Ruhl Libre',serif;font-size:34px;font-weight:900;color:var(--cream);display:block;line-height:1}
+.cd-l{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--stone);margin-top:4px;display:block}
+.cd-dot{font-size:22px;color:var(--gold);opacity:.28;margin-bottom:12px}
+
+/* ── SHARED ── */
+.s-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block}
+.s-h2{font-family:'Frank Ruhl Libre',serif;font-size:clamp(26px,3.5vw,44px);font-weight:900;line-height:1.2}
+
+/* ── VIDEO ── */
+.vid-wrap{background:var(--sand-pale);padding:100px 48px}
+.vid-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.vid-text p{font-size:17px;line-height:1.85;color:var(--stone);margin-top:22px}
+.vid-box{aspect-ratio:16/9;background:var(--rock);position:relative;overflow:hidden;cursor:pointer}
+.vid-box-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,22,18,.45),rgba(26,22,18,.72)),url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=900&q=70') center/cover;filter:saturate(.4) sepia(.3);transition:opacity .3s}
+.vid-box:hover .vid-box-bg{opacity:.82}
+.play-wrap{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px}
+.play-ring{width:68px;height:68px;border:1px solid rgba(201,185,154,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:border-color .3s,transform .3s}
+.vid-box:hover .play-ring{border-color:var(--gold);transform:scale(1.1)}
+.play-tri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-right:17px solid var(--sand);margin-right:-3px}
+.play-txt{font-size:10px;letter-spacing:3px;color:var(--sand);text-transform:uppercase}
+
+/* ── PAIN — IMPROVED READABILITY ── */
+.pain-wrap{padding:100px 48px;background:var(--rock)}
+.pain-inner{max-width:1000px;margin:0 auto}
+.pain-inner .s-tag{color:var(--gold)}
+.pain-inner .s-h2{color:var(--cream);margin-bottom:56px;max-width:600px}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,185,154,.1);border:1px solid rgba(201,185,154,.1)}
+.pain-card{background:#231E1A;padding:36px 28px;transition:background .3s}
+.pain-card:hover{background:#2A2420}
+.pain-n{font-family:'Frank Ruhl Libre',serif;font-size:38px;font-weight:900;color:rgba(176,141,87,.22);line-height:1;margin-bottom:16px;display:block}
+.pain-card p{font-size:16px;line-height:1.75;color:rgba(237,228,216,.82);font-style:italic}
+
+/* ── STORY ── */
+.story-wrap{background:var(--rock);padding:120px 48px;position:relative;overflow:hidden}
+.story-photo{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=1400&q=60') center 30%/cover;opacity:.06;filter:saturate(0) sepia(.5)}
+.story-inner{max-width:740px;margin:0 auto;position:relative;z-index:2}
+.story-inner .s-h2{color:var(--cream);margin-bottom:36px}
+.story-inner p{font-size:17px;line-height:1.9;color:rgba(237,228,216,.68);margin-bottom:22px}
+.pull{border-right:2px solid var(--gold);padding-right:28px;margin:48px 0}
+.pull p{font-family:'Frank Ruhl Libre',serif;font-size:clamp(20px,2.8vw,30px);font-weight:700;color:var(--sand);font-style:italic;line-height:1.4}
+.stats-row{display:flex;gap:48px;margin-top:56px;padding-top:40px;border-top:1px solid rgba(201,185,154,.12);flex-wrap:wrap}
+.st strong{font-family:'Frank Ruhl Libre',serif;font-size:46px;font-weight:900;color:var(--sand);display:block;line-height:1}
+.st span{font-size:11px;color:var(--stone);letter-spacing:2px;text-transform:uppercase;margin-top:5px;display:block}
+
+/* ── GET ── */
+.get-wrap{background:var(--sand-pale);padding:100px 48px}
+.get-inner{max-width:880px;margin:0 auto}
+.get-list{border-top:1px solid rgba(122,110,98,.2);margin-top:56px}
+.get-item{display:grid;grid-template-columns:72px 1fr;border-bottom:1px solid rgba(122,110,98,.2);padding:36px 0;transition:background .2s}
+.get-item:hover{background:rgba(201,185,154,.07)}
+.get-n{font-family:'Frank Ruhl Libre',serif;font-size:44px;font-weight:900;color:rgba(176,141,87,.22);line-height:1}
+.get-b strong{display:block;font-size:19px;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.get-b p{font-size:15px;line-height:1.7;color:var(--stone)}
+
+/* ── FOR WHO ── */
+.who-wrap{background:var(--cream);padding:100px 48px}
+.who-inner{max-width:900px;margin:0 auto}
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:52px}
+.check-card{display:flex;align-items:flex-start;gap:16px;padding:22px;border:1px solid rgba(122,110,98,.2);transition:border-color .25s,background .25s}
+.check-card:hover{border-color:var(--gold);background:var(--sand-pale)}
+.chk{width:22px;height:22px;border:1px solid var(--gold);flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.chk::after{content:'';width:7px;height:4px;border-bottom:1.5px solid var(--gold);border-right:1.5px solid var(--gold);transform:rotate(45deg) translate(-1px,-1px)}
+.check-card p{font-size:15px;line-height:1.65;color:var(--ink)}
+
+/* ── REGISTER ── */
+.reg-wrap{background:var(--rock);padding:120px 48px;position:relative;overflow:hidden}
+.reg-glow{position:absolute;inset:0;background:radial-gradient(ellipse at 15% 50%,rgba(59,107,122,.18) 0%,transparent 55%),radial-gradient(ellipse at 85% 80%,rgba(176,141,87,.08) 0%,transparent 50%);pointer-events:none}
+.reg-grid{max-width:1080px;margin:0 auto;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:90px;align-items:start}
+.reg-text .s-h2{color:var(--cream);margin-bottom:20px}
+.reg-text p{font-size:16px;line-height:1.8;color:rgba(237,228,216,.55);margin-bottom:40px}
+.ev-list{display:flex;flex-direction:column;gap:14px}
+.ev-row{display:flex;align-items:center;gap:14px}
+.ev-dash{width:22px;height:1px;background:var(--gold);flex-shrink:0}
+.ev-row span{font-size:14px;color:var(--sand);letter-spacing:.5px}
+
+/* ── FORM ── */
+.form-card{background:var(--cream);padding:44px 38px}
+.fc-title{font-family:'Frank Ruhl Libre',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.fc-sub{font-size:13px;color:var(--stone);margin-bottom:30px;line-height:1.5}
+.prog{height:2px;background:rgba(122,110,98,.18);margin-bottom:34px}
+.prog-f{height:100%;background:var(--gold);transition:width .5s ease}
+.step{display:none}.step.on{display:block}
+.step-q{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:18px;line-height:1.45}
+.opts{display:flex;flex-direction:column;gap:9px;margin-bottom:22px}
+.opt{display:flex;align-items:center;gap:13px;padding:13px 16px;border:1px solid rgba(122,110,98,.22);cursor:pointer;transition:border-color .2s,background .2s;font-size:14px;color:var(--ink);line-height:1.4}
+.opt:hover{border-color:var(--gold);background:var(--sand-pale)}
+.opt.sel{border-color:var(--gold);background:var(--sand-pale)}
+.dot{width:14px;height:14px;border:1px solid rgba(122,110,98,.38);border-radius:50%;flex-shrink:0;transition:all .2s}
+.opt.sel .dot{background:var(--gold);border-color:var(--gold)}
+.btn-next-f{padding:13px 30px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Heebo',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .25s,color .25s}
+.btn-next-f:hover{background:var(--gold);color:var(--ink)}
+.contact-step{display:none}.contact-step.on{display:block}
+.fg{margin-bottom:18px}
+.fg label{display:block;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--stone);margin-bottom:7px}
+.fg input{width:100%;padding:13px 14px;border:1px solid rgba(122,110,98,.28);background:var(--cream);font-size:15px;font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl;transition:border-color .2s}
+.fg input:focus{outline:none;border-color:var(--gold)}
+.priv-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--stone);line-height:1.5;margin-bottom:24px}
+.priv-row input{margin-top:3px;accent-color:var(--gold);width:14px;height:14px;flex-shrink:0}
+.btn-sub{width:100%;padding:17px;background:var(--gold);border:none;color:var(--ink);font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .25s}
+.btn-sub:hover{background:var(--gold-lt)}
+
+/* ── FOOTER ── */
+footer{background:var(--ink);padding:36px 48px;text-align:center;font-size:12px;color:rgba(201,185,154,.3);line-height:2}
+footer a{color:rgba(201,185,154,.45);text-decoration:none}
+footer a:hover{color:var(--gold)}
+
+/* ── STICKY ── */
+.sticky{position:fixed;bottom:0;left:0;right:0;background:rgba(26,22,18,.97);backdrop-filter:blur(10px);border-top:1px solid rgba(176,141,87,.22);padding:15px 48px;display:flex;align-items:center;justify-content:space-between;gap:20px;z-index:500;transform:translateY(100%);transition:transform .4s ease}
+.sticky.on{transform:translateY(0)}
+.sticky-t{font-size:13px;color:var(--sand);letter-spacing:.5px}
+.sticky-btn{padding:11px 26px;border:1px solid var(--gold);color:var(--gold);font-size:13px;font-weight:700;letter-spacing:1px;text-decoration:none;transition:background .25s,color .25s;white-space:nowrap}
+.sticky-btn:hover{background:var(--gold);color:var(--ink)}
+
+/* ── REVEAL ── */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s ease}
+.rv.shown{opacity:1;transform:translateY(0)}
+
+@keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav,.hero-body,.hero-foot,.cd-bar,.vid-wrap,.story-wrap,.get-wrap,.who-wrap,.reg-wrap,footer,.sticky{padding-left:24px!important;padding-right:24px!important}
+  .vid-grid,.reg-grid{grid-template-columns:1fr;gap:40px}
+  .pain-grid{grid-template-columns:1fr}
+  .check-grid{grid-template-columns:1fr}
+  .hero-body{align-items:flex-start}
+}
+@media(max-width:600px){
+  .h1{font-size:38px}
+  .stats-row{gap:24px}
+  .get-item{grid-template-columns:50px 1fr}
+  .form-card{padding:28px 18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="top">
+  <div class="hero-photo-bg"></div>
+  <div class="hero-bg"></div>
+  <div class="ring" style="width:520px;height:520px"></div>
+  <div class="ring" style="width:320px;height:320px"></div>
+
+  <nav>
+    <div class="logo-wrap">
+      <!-- FIBONACCI COMPASS LOGO SVG -->
+      <svg class="logo-svg" viewBox="0 0 52 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- fibonacci rectangles -->
+        <rect x="1"  y="1"  width="32" height="20" stroke="#B08D57" stroke-width="0.7" opacity="0.5"/>
+        <rect x="1"  y="1"  width="20" height="20" stroke="#B08D57" stroke-width="0.5" opacity="0.35"/>
+        <rect x="21" y="1"  width="12" height="12" stroke="#B08D57" stroke-width="0.4" opacity="0.28"/>
+        <rect x="21" y="13" width="12" height="8"  stroke="#B08D57" stroke-width="0.35" opacity="0.22"/>
+        <line x1="28" y1="13" x2="28" y2="21"      stroke="#B08D57" stroke-width="0.3"  opacity="0.18"/>
+        <rect x="21" y="16" width="7"  height="5"  stroke="#B08D57" stroke-width="0.25" opacity="0.15"/>
+        <!-- golden spiral arcs -->
+        <path d="M1,21 A20,20 0 0,1 21,1"   fill="none" stroke="#B08D57" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+        <path d="M21,1  A12,12 0 0,1 33,13"  fill="none" stroke="#B08D57" stroke-width="1"   stroke-linecap="round" opacity="0.75"/>
+        <path d="M33,13 A8,8   0 0,1 25,21"  fill="none" stroke="#B08D57" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
+        <path d="M25,21 A5,5   0 0,1 21,17"  fill="none" stroke="#B08D57" stroke-width="0.6" stroke-linecap="round" opacity="0.52"/>
+        <path d="M21,17 A3,3   0 0,1 23,14"  fill="none" stroke="#B08D57" stroke-width="0.45" stroke-linecap="round" opacity="0.4"/>
+        <!-- compass needle -->
+        <line x1="22.5" y1="17" x2="22.5" y2="1" stroke="#B08D57" stroke-width="0.4" opacity="0.15"/>
+        <polygon points="22.5,2 20.5,8 22.5,6 24.5,8" fill="#B08D57" opacity="0.8"/>
+        <polygon points="22.5,17 21,12 22.5,13.5 24,12" fill="#B08D57" opacity="0.25"/>
+        <circle cx="22.5" cy="17" r="1.2" fill="#B08D57"/>
+        <!-- N label -->
+        <text x="22.5" y="0.5" font-family="sans-serif" font-size="3.5" fill="#B08D57" text-anchor="middle" opacity="0.65">N</text>
+      </svg>
+      <div class="logo-text-wrap">
+        <span class="logo-name">Liformation</span>
+        <span class="logo-sub-text">Life · Transformation</span>
+      </div>
+    </div>
+    <div class="nav-line"></div>
+    <div class="nav-tag">שישי הקרוב &nbsp;·&nbsp; 11:00</div>
+  </nav>
+
+  <div class="hero-body">
+    <span class="overline">מפגש זום חינמי</span>
+    <h1 class="h1">איך מוצאים<br><em>מה אתם אוהבים</em><br>בחיים</h1>
+    <p class="hero-p">לפני שבוחרים תואר, קריירה, או הכיוון הבא — יש שאלה אחת שרוב האנשים אף פעם לא שאלו את עצמם. שעה וחצי שיתנו לכם כיוון ברור.</p>
+    <div class="cta-wrap">
+      <a href="#register" class="btn-gold">שמרו מקום חינם</a>
+      <span class="cta-small">ללא עלות &nbsp;·&nbsp; זום מהבית &nbsp;·&nbsp; שישי הקרוב</span>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <div><span class="stat-num">960</span><span class="stat-lbl">חודשים בחיים</span></div>
+    <div><span class="stat-num">1.5</span><span class="stat-lbl">שעות מפגש</span></div>
+    <div><span class="stat-num">חינם</span><span class="stat-lbl">ללא עלות</span></div>
+  </div>
+</section>
+
+<!-- ══ COUNTDOWN ══ -->
+<div class="cd-bar">
+  <span class="cd-lbl-main">הלייב מתחיל בעוד</span>
+  <div class="cd-nums">
+    <div class="cd-box"><span class="cd-n" id="cd-d">00</span><span class="cd-l">ימים</span></div>
+    <span class="cd-dot">·</span>
+    <div class="cd-box"><span class="cd-n" id="cd-h">00</span><span class="cd-l">שעות</span></div>
+    <span class="cd-dot">·</span>
+    <div class="cd-box"><span class="cd-n" id="cd-m">00</span><span class="cd-l">דקות</span></div>
+    <span class="cd-dot">·</span>
+    <div class="cd-box"><span class="cd-n" id="cd-s">00</span><span class="cd-l">שניות</span></div>
+  </div>
+  <a href="#register" class="btn-gold" style="font-size:12px;padding:11px 24px">להרשמה</a>
+</div>
+
+<!-- ══ VIDEO ══ -->
+<div class="vid-wrap">
+  <div class="vid-grid">
+    <div class="vid-text rv">
+      <span class="s-tag">הסיפור שלי</span>
+      <h2 class="s-h2">למה אני עושה את המפגש הזה</h2>
+      <p>כשהייתי בן אחת עשרה חלמתי שההורים שלי מתים מזקנה. התעוררתי בדמעות — וישר התחלתי לחשב. מאותו רגע הפכתי להיות אובססיבי לשאלה אחת: <em>איך אני חי חיים שמלאים במה שאני אוהב?</em></p>
+      <p>המפגש הזה הוא מה שהייתי רוצה שמישהו ישב איתי ויסביר לי — לפני שבחרתי את הדרך שלי.</p>
+    </div>
+    <!-- כשהסרטון מוכן — החלף את vid-box בזה:
+    <div style="aspect-ratio:16/9" class="rv">
+      <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    </div> -->
+    <div class="vid-box rv">
+      <div class="vid-box-bg"></div>
+      <div class="play-wrap">
+        <div class="play-ring"><div class="play-tri"></div></div>
+        <span class="play-txt">הודעה מדור</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PAIN — dark bg, bright text ══ -->
+<div class="pain-wrap">
+  <div class="pain-inner">
+    <span class="s-tag rv">אתם לא לבד</span>
+    <h2 class="s-h2 rv">רוב הצעירים עוצרים כשאני שואל אותם את השאלה הזו</h2>
+    <div class="pain-grid rv">
+      <div class="pain-card"><span class="pain-n">01</span><p>"אני לא יודע מה אני אוהב בכלל. ניסיתי לחשוב על זה ולא יוצא לי"</p></div>
+      <div class="pain-card"><span class="pain-n">02</span><p>"בחרתי תואר כי אמרו לי שיש בו כסף. לא בטוח שזה הדבר שלי"</p></div>
+      <div class="pain-card"><span class="pain-n">03</span><p>"כולם כבר יודעים מה הם רוצים. אני עדיין מגמגם על זה"</p></div>
+      <div class="pain-card"><span class="pain-n">04</span><p>"מרגיש שהזמן עובר ואני עדיין לא יודע לאן אני הולך"</p></div>
+      <div class="pain-card"><span class="pain-n">05</span><p>"אומרים לי תעקוב אחרי התשוקה שלך. אבל אני לא יודע מה התשוקה שלי"</p></div>
+      <div class="pain-card"><span class="pain-n">06</span><p>"מרגיש שאני הולך לחיים שלי בלי שבאמת בחרתי אותם"</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ STORY ══ -->
+<div class="story-wrap">
+  <div class="story-photo"></div>
+  <div class="story-inner">
+    <span class="s-tag rv">960 חודשים</span>
+    <h2 class="s-h2 rv">בגיל אחת עשרה הבנתי משהו שרוב האנשים לא מבינים גם בגיל ארבעים</h2>
+    <p class="rv">חלמתי שההורים שלי מתים מזקנה. התעוררתי בדמעות וישר התחלתי לחשב. מגיל אפס עד שמונים — בני אדם חיים בדיוק תשע מאות ושישים חודשים. שליש מזה ישנים. לפחות רבע בעבודה.</p>
+    <div class="pull rv"><p>הדרך היחידה לא לבזבז את הזמן הזה בעבודה — היא ליהנות ממנה.</p></div>
+    <p class="rv">מאז עשיתי הסכם עם עצמי שלא אעשה בחיים משהו שאני לא רוצה או אוהב. עבדתי שתים עשרה שנה כמדריך גלישה — גם כשלא שילמו לי — כי ידעתי שאני במקום הנכון. היום אני מנהל עסק של עשר שנים שמבטא את כל מה שאני אוהב.</p>
+    <p class="rv">כל יום אני פוגש צעירים שעוברים את הדרך לתואר ולעבודה בלי שהם יודעים למה. המפגש הזה נועד לשנות את זה.</p>
+    <div class="stats-row rv">
+      <div class="st"><strong>12</strong><span>שנות הדרכה</span></div>
+      <div class="st"><strong>10</strong><span>שנות עסק</span></div>
+      <div class="st"><strong>960</strong><span>חודשים לחיות</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WHAT YOU GET ══ -->
+<div class="get-wrap">
+  <div class="get-inner">
+    <span class="s-tag rv">מה יקרה בלייב</span>
+    <h2 class="s-h2 rv">שעה וחצי עם כיוון ברור בסוף</h2>
+    <div class="get-list">
+      <div class="get-item rv"><span class="get-n">01</span><div class="get-b"><strong>למה רוב האנשים לא יודעים מה הם אוהבים</strong><p>ולמה זה לא אשמתכם — אלא תוצאה של מערכת שמעולם לא שאלה אתכם את השאלות הנכונות</p></div></div>
+      <div class="get-item rv"><span class="get-n">02</span><div class="get-b"><strong>למה חשוב לעשות את זה עכשיו ולא אחרי</strong><p>מה קורה כשממשיכים בלי לדעת את התשובה — ומה נפתח כשמוצאים אותה</p></div></div>
+      <div class="get-item rv"><span class="get-n">03</span><div class="get-b"><strong>איפה מתחילים — הצעד הראשון בפועל</strong><p>לא תיאוריה. תהליך אמיתי. נלמד ביחד איפה כל אחד עומד ומה הצעד המדויק הבא שלו</p></div></div>
+      <div class="get-item rv"><span class="get-n">04</span><div class="get-b"><strong>שאלות ותשובות חיות</strong><p>מדברים איתכם, לא אליכם. תוכלו לשאול הכל בזמן אמת</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOR WHO ══ -->
+<div class="who-wrap">
+  <div class="who-inner">
+    <span class="s-tag rv">למי זה מתאים</span>
+    <h2 class="s-h2 rv">אם אחד מהמשפטים האלה מדבר אליכם — המפגש הזה בשבילכם</h2>
+    <div class="check-grid rv">
+      <div class="check-card"><div class="chk"></div><p>לפני בחירת תואר ולא יודעים מה לבחור</p></div>
+      <div class="check-card"><div class="chk"></div><p>סיימתם תואר ועדיין מחפשים כיוון לקריירה</p></div>
+      <div class="check-card"><div class="chk"></div><p>עובדים בעבודה שלא מרגישים שזה הדבר שלכם</p></div>
+      <div class="check-card"><div class="chk"></div><p>לא יודעים מה אתם אוהבים — מאיפה בכלל מתחילים</p></div>
+      <div class="check-card"><div class="chk"></div><p>מרגישים שאתם עלים נידפים ברוח בלי כיוון ברור</p></div>
+      <div class="check-card"><div class="chk"></div><p>רוצים להפסיק לתת לחיים לקרות לכם — ולהתחיל לבחור</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REGISTER ══ -->
+<div class="reg-wrap" id="register">
+  <div class="reg-glow"></div>
+  <div class="reg-grid">
+    <div class="rv">
+      <span class="s-tag">הרשמה חינמית</span>
+      <h2 class="s-h2" style="color:var(--cream);margin-bottom:20px">שמרו את המקום שלכם</h2>
+      <p class="reg-text p" style="font-size:16px;line-height:1.8;color:rgba(237,228,216,.55);margin-bottom:40px">שישי הקרוב בשעה אחת עשרה. זום מהבית. שעה וחצי שיתנו לכם כיוון.</p>
+      <div class="ev-list">
+        <div class="ev-row"><div class="ev-dash"></div><span>שישי הקרוב, 11:00 — 12:30</span></div>
+        <div class="ev-row"><div class="ev-dash"></div><span>זום אונליין — מהבית</span></div>
+        <div class="ev-row"><div class="ev-dash"></div><span>חינם לגמרי</span></div>
+        <div class="ev-row"><div class="ev-dash"></div><span>לינק ישלח למייל אחרי ההרשמה</span></div>
+      </div>
+    </div>
+
+    <div class="form-card rv">
+      <div class="fc-title">הרשמה למפגש</div>
+      <div class="fc-sub">שאלה קצרה ואז פרטים — לוקח פחות מדקה</div>
+      <div class="prog"><div class="prog-f" id="pf" style="width:25%"></div></div>
+
+      <div class="step on" id="s1">
+        <div class="step-q">איפה אתם עומדים היום?</div>
+        <div class="opts">
+          <div class="opt" onclick="pick(this,'q1')"><div class="dot"></div>לפני בחירת תואר, לא יודעים מה לבחור</div>
+          <div class="opt" onclick="pick(this,'q1')"><div class="dot"></div>סיימנו תואר, מחפשים כיוון לקריירה</div>
+          <div class="opt" onclick="pick(this,'q1')"><div class="dot"></div>עובדים בעבודה שלא מרגישים שזה הדבר שלנו</div>
+          <div class="opt" onclick="pick(this,'q1')"><div class="dot"></div>פשוט לא יודעים מה אוהבים — מאיפה מתחילים</div>
+        </div>
+        <button class="btn-next-f" onclick="go(2,50)">המשך</button>
+      </div>
+
+      <div class="step" id="s2">
+        <div class="step-q">כמה זמן אתם כבר עם השאלה הזו?</div>
+        <div class="opts">
+          <div class="opt" onclick="pick(this,'q2')"><div class="dot"></div>כמה חודשים</div>
+          <div class="opt" onclick="pick(this,'q2')"><div class="dot"></div>שנה עד שנתיים</div>
+          <div class="opt" onclick="pick(this,'q2')"><div class="dot"></div>יותר משנתיים</div>
+          <div class="opt" onclick="pick(this,'q2')"><div class="dot"></div>תמיד הרגשנו ככה, כבר מגיל צעיר</div>
+        </div>
+        <button class="btn-next-f" onclick="go(3,75)">המשך</button>
+      </div>
+
+      <div class="step" id="s3">
+        <div class="step-q">מה הדבר שהכי מונע מכם להתקדם בנושא?</div>
+        <div class="opts">
+          <div class="opt" onclick="pick(this,'q3')"><div class="dot"></div>לא יודעים מאיפה להתחיל</div>
+          <div class="opt" onclick="pick(this,'q3')"><div class="dot"></div>פחד לבחור משהו ולהתחרט</div>
+          <div class="opt" onclick="pick(this,'q3')"><div class="dot"></div>לחץ מהורים או מהסביבה</div>
+          <div class="opt" onclick="pick(this,'q3')"><div class="dot"></div>פשוט לא ניסינו לחשוב על זה ברצינות</div>
+        </div>
+        <button class="btn-next-f" onclick="go('c',100)">המשך לרישום</button>
+      </div>
+
+      <div class="contact-step" id="sc">
+        <div class="step-q" style="margin-bottom:22px">מעולה — שומרים לכם מקום. רק פרטים קטנים:</div>
+        <div class="fg"><label>שם מלא</label><input type="text" id="fn" placeholder="שם מלא"></div>
+        <div class="fg"><label>כתובת מייל</label><input type="email" id="fe" placeholder="your@email.com"></div>
+        <div class="priv-row">
+          <input type="checkbox" id="pv">
+          <label for="pv">אני מסכים/ה לקבל עדכונים ותכנים רלוונטיים מדור דמרי בעתיד. אפשר להסיר בכל עת.</label>
+        </div>
+        <button class="btn-sub" onclick="sub()">שמרו לי מקום במפגש</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>דור דמרי &nbsp;·&nbsp; Liformation &nbsp;·&nbsp; <a href="mailto:info@chasingfun.co.il">info@chasingfun.co.il</a></p>
+  <p><a href="#">מדיניות פרטיות</a> &nbsp;·&nbsp; <a href="#">תנאי שימוש</a></p>
+  <p style="margin-top:8px;font-size:11px">2025 © כל הזכויות שמורות</p>
+</footer>
+
+<div class="sticky" id="stk">
+  <span class="sticky-t">שישי הקרוב, 11:00 &nbsp;·&nbsp; מפגש זום חינמי</span>
+  <a href="#register" class="sticky-btn">שמרו מקום חינם</a>
+</div>
+
+<script>
+function fri11(){const n=new Date,d=(5-n.getDay()+7)%7||7,t=new Date(n);t.setDate(n.getDate()+d);t.setHours(11,0,0,0);return t}
+function tick(){const g=fri11()-new Date;if(g<=0)return;const p=v=>String(Math.floor(v)).padStart(2,'0');document.getElementById('cd-d').textContent=p(g/86400000);document.getElementById('cd-h').textContent=p(g%86400000/3600000);document.getElementById('cd-m').textContent=p(g%3600000/60000);document.getElementById('cd-s').textContent=p(g%60000/1000)}
+setInterval(tick,1000);tick();
+window.addEventListener('scroll',()=>document.getElementById('stk').classList.toggle('on',scrollY>600));
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('shown')}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+const ans={};
+function pick(el,q){el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');ans[q]=el.textContent.trim()}
+function go(n,pct){document.querySelectorAll('.step,.contact-step').forEach(s=>s.classList.remove('on'));document.getElementById('pf').style.width=pct+'%';n==='c'?document.getElementById('sc').classList.add('on'):document.getElementById('s'+n).classList.add('on')}
+function sub(){
+  const nm=document.getElementById('fn').value.trim();
+  const em=document.getElementById('fe').value.trim();
+  const pv=document.getElementById('pv').checked;
+  if(!nm||!em||!pv){alert('אנא מלאו שם, מייל, והסכמה לתנאים');return}
+  // MAKE WEBHOOK — יש להחליף את ה-URL אחרי הגדרת Make
+  fetch('https://hook.eu1.make.com/q8ri8n9cc634gbdlykmh9ul8eo6ok8ct',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:nm,email:em,q1:ans.q1||'',q2:ans.q2||'',q3:ans.q3||'',timestamp:new Date().toISOString()})})
+  .then(()=>window.location.href='/purpose/thank-you')
+  .catch(()=>window.location.href='/purpose/thank-you');
+}
+</script>
+</body>
+</html>
