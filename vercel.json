@@ -3,6 +3,10 @@
     {
       "source": "/purpose",
       "destination": "/campaigns/01-find-what-you-love/index.html"
+    },
+    {
+      "source": "/purpose/thank-you",
+      "destination": "/thank-you.html"
     }
   ]
 }
