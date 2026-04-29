@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>נרשמת — Liformation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Frank+Ruhl+Libre:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sand:#C9B99A;--sand-lt:#EDE4D8;--sand-pale:#F7F2EC;
+  --stone:#7A6E62;--rock:#2E2720;
+  --gold:#B08D57;--gold-lt:#C9A96E;
+  --cream:#FAF7F2;--ink:#1A1612;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;min-height:100vh}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.3}
+
+/* ── HEADER ── */
+.header{background:var(--rock);padding:24px 48px;display:flex;align-items:center;justify-content:space-between}
+.logo-wrap{display:flex;align-items:center;gap:14px}
+.logo-name{font-family:'Frank Ruhl Libre',serif;font-size:15px;font-weight:400;color:var(--sand);letter-spacing:3px;text-transform:uppercase}
+.logo-sub-text{font-size:8px;color:var(--stone);letter-spacing:4px;text-transform:uppercase}
+
+/* ── HERO CONFIRM ── */
+.confirm{background:var(--rock);padding:80px 48px 100px;text-align:center;position:relative;overflow:hidden}
+.confirm-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(176,141,87,.12) 0%,transparent 60%);pointer-events:none}
+
+/* fibonacci logo large */
+.logo-mark{margin:0 auto 40px;display:block;opacity:0;animation:rise .8s ease .1s forwards}
+
+.confirm-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:block;opacity:0;animation:rise .8s ease .2s forwards}
+.confirm h1{font-family:'Frank Ruhl Libre',serif;font-size:clamp(32px,5vw,60px);font-weight:900;color:var(--cream);line-height:1.1;margin-bottom:20px;opacity:0;animation:rise .8s ease .3s forwards}
+.confirm h1 em{font-style:normal;color:var(--sand)}
+.confirm p{font-size:17px;color:rgba(237,228,216,.65);font-weight:300;line-height:1.75;max-width:520px;margin:0 auto;opacity:0;animation:rise .8s ease .4s forwards}
+
+/* event box */
+.event-box{display:inline-flex;gap:40px;margin-top:48px;padding:24px 40px;border:1px solid rgba(176,141,87,.25);opacity:0;animation:rise .8s ease .5s forwards;flex-wrap:wrap;justify-content:center}
+.ev-item{text-align:center}
+.ev-val{font-family:'Frank Ruhl Libre',serif;font-size:22px;font-weight:700;color:var(--sand);display:block;line-height:1}
+.ev-lbl{font-size:10px;color:var(--stone);letter-spacing:2px;text-transform:uppercase;margin-top:4px;display:block}
+
+/* ── QUESTIONNAIRE ── */
+.q-wrap{max-width:680px;margin:0 auto;padding:80px 48px}
+.q-header{margin-bottom:52px}
+.s-tag{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+.q-header h2{font-family:'Frank Ruhl Libre',serif;font-size:clamp(24px,3.5vw,38px);font-weight:900;line-height:1.2}
+.q-header p{font-size:16px;color:var(--stone);line-height:1.7;margin-top:12px}
+
+/* question blocks */
+.q-block{margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid rgba(122,110,98,.15)}
+.q-block:last-of-type{border-bottom:none}
+.q-label{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:16px;line-height:1.45}
+.q-num{font-family:'Frank Ruhl Libre',serif;font-size:13px;color:var(--gold);margin-left:8px;opacity:.6}
+
+/* options */
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:center;gap:13px;padding:13px 16px;border:1px solid rgba(122,110,98,.22);cursor:pointer;transition:border-color .2s,background .2s;font-size:14px;color:var(--ink);line-height:1.4}
+.opt:hover{border-color:var(--gold);background:var(--sand-pale)}
+.opt.sel{border-color:var(--gold);background:var(--sand-pale)}
+.dot{width:14px;height:14px;border:1px solid rgba(122,110,98,.38);border-radius:50%;flex-shrink:0;transition:all .2s}
+.opt.sel .dot{background:var(--gold);border-color:var(--gold)}
+
+/* textarea */
+.q-textarea{width:100%;padding:14px 16px;border:1px solid rgba(122,110,98,.28);background:var(--cream);font-size:15px;font-family:'Heebo',sans-serif;color:var(--ink);direction:rtl;resize:vertical;min-height:90px;transition:border-color .2s;line-height:1.6}
+.q-textarea:focus{outline:none;border-color:var(--gold)}
+.q-textarea::placeholder{color:rgba(122,110,98,.45)}
+
+/* submit */
+.submit-wrap{text-align:center;padding:40px 0 80px}
+.submit-wrap p{font-size:14px;color:var(--stone);margin-bottom:24px;line-height:1.6}
+.btn-gold{display:inline-block;padding:17px 52px;border:1px solid var(--gold);color:var(--gold-lt);font-family:'Heebo',sans-serif;font-size:15px;font-weight:700;letter-spacing:1.5px;text-decoration:none;cursor:pointer;background:transparent;position:relative;overflow:hidden;transition:color .3s}
+.btn-gold::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .35s ease;z-index:-1}
+.btn-gold:hover::before{transform:scaleX(1)}
+.btn-gold:hover{color:var(--ink)}
+
+/* success state */
+.success{display:none;text-align:center;padding:60px 24px}
+.success h2{font-family:'Frank Ruhl Libre',serif;font-size:36px;font-weight:900;color:var(--ink);margin-bottom:16px}
+.success p{font-size:17px;color:var(--stone);line-height:1.75;max-width:480px;margin:0 auto}
+
+/* footer */
+footer{background:var(--ink);padding:28px 48px;text-align:center;font-size:12px;color:rgba(201,185,154,.3);line-height:2}
+footer a{color:rgba(201,185,154,.45);text-decoration:none}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.shown{opacity:1;transform:translateY(0)}
+
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:600px){
+  .header,.confirm,.q-wrap{padding-left:24px!important;padding-right:24px!important}
+  .event-box{gap:24px;padding:20px 24px}
+  .confirm{padding:60px 24px 80px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo-wrap">
+    <svg width="52" height="32" viewBox="0 0 52 32" fill="none">
+      <rect x="1"  y="1"  width="32" height="20" stroke="#B08D57" stroke-width="0.7" opacity="0.5"/>
+      <rect x="1"  y="1"  width="20" height="20" stroke="#B08D57" stroke-width="0.5" opacity="0.35"/>
+      <rect x="21" y="1"  width="12" height="12" stroke="#B08D57" stroke-width="0.4" opacity="0.28"/>
+      <rect x="21" y="13" width="12" height="8"  stroke="#B08D57" stroke-width="0.35" opacity="0.22"/>
+      <line x1="28" y1="13" x2="28" y2="21"      stroke="#B08D57" stroke-width="0.3"  opacity="0.18"/>
+      <path d="M1,21 A20,20 0 0,1 21,1"   fill="none" stroke="#B08D57" stroke-width="1.2" stroke-linecap="round" opacity="0.85"/>
+      <path d="M21,1  A12,12 0 0,1 33,13"  fill="none" stroke="#B08D57" stroke-width="1"   stroke-linecap="round" opacity="0.75"/>
+      <path d="M33,13 A8,8   0 0,1 25,21"  fill="none" stroke="#B08D57" stroke-width="0.8" stroke-linecap="round" opacity="0.65"/>
+      <path d="M25,21 A5,5   0 0,1 21,17"  fill="none" stroke="#B08D57" stroke-width="0.6" stroke-linecap="round" opacity="0.52"/>
+      <polygon points="22.5,2 20.5,8 22.5,6 24.5,8" fill="#B08D57" opacity="0.8"/>
+      <circle cx="22.5" cy="17" r="1.2" fill="#B08D57"/>
+    </svg>
+    <div>
+      <div class="logo-name">Liformation</div>
+      <div class="logo-sub-text">Life · Transformation</div>
+    </div>
+  </div>
+</header>
+
+<!-- CONFIRM -->
+<section class="confirm">
+  <div class="confirm-bg"></div>
+
+  <!-- big fibonacci mark -->
+  <svg class="logo-mark" width="80" height="50" viewBox="0 0 52 32" fill="none">
+    <rect x="1"  y="1"  width="32" height="20" stroke="#B08D57" stroke-width="0.7" opacity="0.4"/>
+    <rect x="1"  y="1"  width="20" height="20" stroke="#B08D57" stroke-width="0.5" opacity="0.28"/>
+    <rect x="21" y="1"  width="12" height="12" stroke="#B08D57" stroke-width="0.4" opacity="0.22"/>
+    <rect x="21" y="13" width="12" height="8"  stroke="#B08D57" stroke-width="0.35" opacity="0.18"/>
+    <path d="M1,21 A20,20 0 0,1 21,1"   fill="none" stroke="#B08D57" stroke-width="1.4" stroke-linecap="round" opacity="0.9"/>
+    <path d="M21,1  A12,12 0 0,1 33,13"  fill="none" stroke="#B08D57" stroke-width="1.1" stroke-linecap="round" opacity="0.8"/>
+    <path d="M33,13 A8,8   0 0,1 25,21"  fill="none" stroke="#B08D57" stroke-width="0.9" stroke-linecap="round" opacity="0.7"/>
+    <path d="M25,21 A5,5   0 0,1 21,17"  fill="none" stroke="#B08D57" stroke-width="0.7" stroke-linecap="round" opacity="0.55"/>
+    <polygon points="22.5,2 20.5,8 22.5,6 24.5,8" fill="#B08D57" opacity="0.85"/>
+    <circle cx="22.5" cy="17" r="1.5" fill="#B08D57"/>
+  </svg>
+
+  <span class="confirm-tag">ההרשמה התקבלה</span>
+  <h1>הגעתם.<br><em>זה הצעד הראשון.</em></h1>
+  <p>לינק לזום ישלח אליכם במייל לפני המפגש. בינתיים — ספרו לנו קצת עליכם כדי שנוכל להתכונן.</p>
+
+  <div class="event-box">
+    <div class="ev-item">
+      <span class="ev-val">שישי הקרוב</span>
+      <span class="ev-lbl">תאריך</span>
+    </div>
+    <div class="ev-item">
+      <span class="ev-val">11:00</span>
+      <span class="ev-lbl">שעה</span>
+    </div>
+    <div class="ev-item">
+      <span class="ev-val">זום</span>
+      <span class="ev-lbl">פלטפורמה</span>
+    </div>
+    <div class="ev-item">
+      <span class="ev-val">חינם</span>
+      <span class="ev-lbl">עלות</span>
+    </div>
+  </div>
+</section>
+
+<!-- QUESTIONNAIRE -->
+<div class="q-wrap">
+  <div class="q-header rv">
+    <span class="s-tag">שאלון היכרות</span>
+    <h2>רגע לפני — ספרו לנו קצת עליכם</h2>
+    <p>התשובות יעזרו לי להתכונן ולתת לכם את הערך הגבוה ביותר במפגש. לוקח שתי דקות.</p>
+  </div>
+
+  <div id="qForm">
+
+    <!-- Q1 -->
+    <div class="q-block rv">
+      <div class="q-label"><span class="q-num">01</span>מה הגיל שלכם?</div>
+      <div class="opts">
+        <div class="opt" onclick="pick(this,'age')"><div class="dot"></div>עד 20</div>
+        <div class="opt" onclick="pick(this,'age')"><div class="dot"></div>21 — 24</div>
+        <div class="opt" onclick="pick(this,'age')"><div class="dot"></div>25 — 28</div>
+        <div class="opt" onclick="pick(this,'age')"><div class="dot"></div>29 ומעלה</div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="q-block rv">
+      <div class="q-label"><span class="q-num">02</span>מה הסטטוס שלכם עכשיו?</div>
+      <div class="opts">
+        <div class="opt" onclick="pick(this,'status')"><div class="dot"></div>לפני תואר — עדיין לא בחרתי מה ללמוד</div>
+        <div class="opt" onclick="pick(this,'status')"><div class="dot"></div>במהלך לימודים — לא בטוח שבחרתי נכון</div>
+        <div class="opt" onclick="pick(this,'status')"><div class="dot"></div>אחרי תואר — מחפש מה לעשות הלאה</div>
+        <div class="opt" onclick="pick(this,'status')"><div class="dot"></div>עובד — אבל לא מרגיש שזה הדבר שלי</div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="q-block rv">
+      <div class="q-label"><span class="q-num">03</span>אם הייתם צריכים להצביע על דבר אחד שאתם אוהבים לעשות — מה היה?</div>
+      <textarea class="q-textarea" id="q3" placeholder="כתבו בחופשיות — אין תשובה נכונה או לא נכונה"></textarea>
+    </div>
+
+    <!-- Q4 -->
+    <div class="q-block rv">
+      <div class="q-label"><span class="q-num">04</span>מה הדבר הכי גדול שאתם מקווים לקחת מהמפגש?</div>
+      <div class="opts">
+        <div class="opt" onclick="pick(this,'hope')"><div class="dot"></div>להבין מה אני אוהב בכלל</div>
+        <div class="opt" onclick="pick(this,'hope')"><div class="dot"></div>לדעת איך מתחילים לחקור את זה בפועל</div>
+        <div class="opt" onclick="pick(this,'hope')"><div class="dot"></div>להפסיק לפחד מהחלטות על העתיד</div>
+        <div class="opt" onclick="pick(this,'hope')"><div class="dot"></div>להרגיש שאני לא לבד עם זה</div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="q-block rv">
+      <div class="q-label"><span class="q-num">05</span>יש משהו ספציפי שאתם רוצים שנדבר עליו במפגש?</div>
+      <textarea class="q-textarea" id="q5" placeholder="שאלה, נושא, או סיטואציה ספציפית — אשמח לדעת"></textarea>
+    </div>
+
+    <div class="submit-wrap rv">
+      <p>התשובות שלכם ישמרו ויעזרו לי להתכונן אישית.</p>
+      <button class="btn-gold" onclick="submitQ()">שלחו את השאלון</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success" id="successMsg">
+    <svg width="64" height="40" viewBox="0 0 52 32" fill="none" style="margin:0 auto 28px;display:block">
+      <rect x="1" y="1" width="32" height="20" stroke="#B08D57" stroke-width="0.7" opacity="0.4"/>
+      <rect x="1" y="1" width="20" height="20" stroke="#B08D57" stroke-width="0.5" opacity="0.28"/>
+      <path d="M1,21 A20,20 0 0,1 21,1" fill="none" stroke="#B08D57" stroke-width="1.4" stroke-linecap="round" opacity="0.9"/>
+      <path d="M21,1 A12,12 0 0,1 33,13" fill="none" stroke="#B08D57" stroke-width="1.1" stroke-linecap="round" opacity="0.8"/>
+      <polygon points="22.5,2 20.5,8 22.5,6 24.5,8" fill="#B08D57" opacity="0.85"/>
+      <circle cx="22.5" cy="17" r="1.5" fill="#B08D57"/>
+    </svg>
+    <h2>תודה — התקבל</h2>
+    <p>קיבלתי את התשובות שלכם. מחכה לפגוש אתכם שישי בשעה 11:00. לינק לזום יגיע למייל לפני המפגש.</p>
+    <br>
+    <p style="font-size:14px;color:var(--stone)">דור</p>
+  </div>
+</div>
+
+<footer>
+  <p>דור דמרי &nbsp;·&nbsp; Liformation &nbsp;·&nbsp; <a href="mailto:info@chasingfun.co.il">info@chasingfun.co.il</a></p>
+  <p style="margin-top:6px;font-size:11px">2025 © כל הזכויות שמורות</p>
+</footer>
+
+<script>
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('shown')}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+const ans={};
+function pick(el,q){el.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));el.classList.add('sel');ans[q]=el.textContent.trim()}
+
+function submitQ(){
+  const q3=document.getElementById('q3').value.trim();
+  const q5=document.getElementById('q5').value.trim();
+
+  const payload={
+    age: ans.age||'',
+    status: ans.status||'',
+    q3_love: q3,
+    hope: ans.hope||'',
+    q5_specific: q5,
+    timestamp: new Date().toISOString()
+  };
+
+  // שלח ל-Make Webhook (אפשר להוסיף Webhook נפרד לשאלון או להשתמש באותו)
+  fetch('https://hook.eu1.make.com/khv436s44pa977n5qjqsyc6j2tj7kjuk',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  }).catch(()=>{});
+
+  document.getElementById('qForm').style.display='none';
+  document.getElementById('successMsg').style.display='block';
+  window.scrollTo({top: document.querySelector('.q-wrap').offsetTop, behavior:'smooth'});
+}
+</script>
+</body>
+</html>
